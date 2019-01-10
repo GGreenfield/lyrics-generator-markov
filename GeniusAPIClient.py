@@ -2,15 +2,20 @@ import requests
 from bs4 import BeautifulSoup
 from keys import *
 
-class GeniusAPIwRapper:
+class GeniusAPIClient:
+
+    def __init__(self):
+        pass
 
     def getJSON(self, path, params):
         base_url = "http://api.genius.com"
         headers = {"Authorization" : "Bearer " + geniusAccessKey}
         url = base_url + path
         response = requests.get(url=url, params=params, headers=headers)
+        print("got response")
         return response.json()	
-
+    
+    # Execute a search from an artist_name
     def getArtistId(self, artist_name):
         params = {"q" : artist_name}
         path = "/search"
@@ -38,7 +43,7 @@ class GeniusAPIwRapper:
 
             return song_list
 
-    #refacto to get lyrics from ONE song
+    #refactor to get lyrics from ONE song
     """  def getLyrics(self):
         songs = self.getSongs()
         f = open("body-of-text", "a")
